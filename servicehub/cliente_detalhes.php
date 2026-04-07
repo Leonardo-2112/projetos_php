@@ -21,3 +21,6 @@ include "includes/menu.php";
 
   <a href="cliente_dashboard.php" class="btn btn-secondary">Voltar</a>
 </main>
+<?php 
+include "includes/footer.php";
+?>

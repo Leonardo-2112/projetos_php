@@ -31,3 +31,6 @@ include "includes/menu.php";
 
   </form>
 </main>
+<?php 
+include "includes/footer.php";
+?>

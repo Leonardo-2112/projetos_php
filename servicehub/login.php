@@ -38,3 +38,6 @@ include "includes/menu.php";
 </div>
 </body>
 </html>
+<?php 
+include "includes/footer.php";
+?>

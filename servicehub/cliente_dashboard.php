@@ -30,3 +30,6 @@ include "includes/menu.php";
     </tbody>
   </table>
 </main>
+<?php 
+include "includes/footer.php";
+?>

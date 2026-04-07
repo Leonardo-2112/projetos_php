@@ -32,3 +32,6 @@ include "includes/menu.php";
 
   <a href="admin_dashboard.php" class="btn btn-secondary">Voltar</a>
 </main>
+<?php 
+include "includes/footer.php";
+?>
