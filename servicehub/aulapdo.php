@@ -32,6 +32,10 @@ $clientes = $cmd->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+    <form action="resform.php" method="post">
+        <input type="text" name="txtid" id="">
+        <button type="submit">Enviar</button>
+    </form>
     <!-- Exibindo tabela de serviços cadastrados -->
     <h2>Lista de Serviços</h2>
     <table border="1" cellpadding=10>
@@ -115,7 +119,7 @@ $clientes = $cmd->fetchAll(PDO::FETCH_ASSOC);
         <?php }; ?> <!--Fecha o foreach -->
     </table>
 
-    
+
     <!-- Exibindo a tabela de Clientes -->
     <h2>Clientes</h2>
     <table border="1" cellpadding=10>
