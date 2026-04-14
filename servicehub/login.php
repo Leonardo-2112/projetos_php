@@ -1,6 +1,13 @@
 <?php 
 include "includes/header.php";
 include "includes/menu.php";
+
+require "class/usuario.php";
+//Criar Objeto Usuario
+$user = new Usuario();
+//Chama o método efetuarLogin da classe Usuario
+var_dump($user->efetuarLogin('admin@servicehub.com', 'admin123'));
+
 ?>
 
 <!DOCTYPE html>

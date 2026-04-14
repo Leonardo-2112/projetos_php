@@ -2,13 +2,13 @@
 <?php 
 //Comando SQL para Listar Serviços de acordo com o banco de dados 
 include_once "config/conexao.php";
-$cmd = $pdo->prepare("SELECT * FROM servicos WHERE descontinuado=b'0'");
+$cmd = obterPdo()->prepare("SELECT * FROM servicos WHERE descontinuado=b'0'");
 $cmd -> execute();
 $servicos = $cmd -> fetchAll(PDO::FETCH_ASSOC);
 
 //Comando SQL para Listar Usuários de acordo com o banco de dados
 $sql = "SELECT nome FROM usuarios WHERE tipo = 2 and ativo = 1 order by id asc limit 4;";
-$cmd = $pdo->prepare($sql);
+$cmd = obterPdo()->prepare($sql);
 $cmd -> execute();
 $clientes = $cmd->fetchAll(PDO::FETCH_ASSOC);
 
