@@ -73,9 +73,9 @@ class Usuario
     }
     //métodos (funções ou functions)
     //Efetuar Login
-    public function efetuarLogin(string $email, string $senha):array{
+    public static function efetuarLogin(string $email, string $senha):array{
         $sql = "select * from usuarios where email = :email and ativo = '1'";
-        $cmd = $this->pdo->prepare($sql);
+        $cmd = obterPdo()->prepare($sql);
         $cmd->bindValue(":email", $email);
         $cmd->execute();
         $dados = $cmd->fetch(PDO::FETCH_ASSOC);
