@@ -9,7 +9,7 @@ if(isset($_SESSION['usuario_id'])){
   header("location: $destino");
 }
 
-require "class/usuario.php";
+require "class/Usuario.php";
 // //Criar Objeto Usuario
 // $user = new Usuario();
 // //Chama o método efetuarLogin da classe Usuario
