@@ -1,6 +1,12 @@
-<?php 
+<?php
+session_start(); 
 include "includes/header.php";
 include "includes/menu.php";
+
+if(!isset($_SESSION['usuario_id']) || $_SESSION["tipo"] != 2){ //isset função que retorna boll para variavel existente e valor atribuido
+   header("location: login.php");                              // "!" inverte isset (caso não tenha valor ou a variavel ele retorna true)
+} 
+                                                              
 ?>
 <main class="container mt-5">
   <h2>Bem-vindo,</h2>
