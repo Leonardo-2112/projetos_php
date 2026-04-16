@@ -10,6 +10,10 @@ servicehub/
 │
 ├── config/
 │   └── conexao.php
+|
+|
+├── class/
+│   └── usuario.php
 │
 ├── includes/
 │   ├── header.php

@@ -23,7 +23,7 @@ include "includes/menu.php";
         <img src="assets/img/banner1.jpg" class="d-block w-100 banner-img" alt="Banner 1">
       </div>
       <div class="carousel-item">
-        <img src="assets/img/banner2.jpg" class="d-block w-100 banner-img" alt="Banner 2">
+        <img src="assets/img/banner1.jpg" class="d-block w-100 banner-img" alt="Banner 2">
       </div>
       <div class="carousel-item">
         <img src="assets/img/banner3.jpg" class="d-block w-100 banner-img" alt="Banner 3">
