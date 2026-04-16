@@ -9,7 +9,7 @@ if(!isset($_SESSION['usuario_id']) || $_SESSION["tipo"] != 2){ //isset função 
                                                               
 ?>
 <main class="container mt-5">
-  <h2>Bem-vindo,</h2>
+  <h2>Bem-vindo, <strong><?= $_SESSION['nome'] ?></strong></h2>
   <p><a href="logout.php" class="btn btn-danger btn-sm">Sair</a></p>
   <a href="cliente_perfil.php" class="btn btn-warning btn-sm">Meu Perfil</a>
   <h4 class="mt-4">Minhas Solicitações</h4>
