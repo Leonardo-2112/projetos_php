@@ -24,21 +24,29 @@ error_reporting(E_ALL);
 
 
 //TESTANDO BUSCA POR ID
-$usuario = new Usuario();
-if ($usuario->buscarPorId(20)){
-    echo "<pre>";
-    echo $usuario->getId(). "-" .$usuario->getNome()."<br>";
-}else{
-    echo "Usuário não Cadastrado";
-    die();
-}
+// $usuario = new Usuario();
+// if ($usuario->buscarPorId(20)){
+//     echo "<pre>";
+//     echo $usuario->getId(). "-" .$usuario->getNome()."<br>";
+// }else{
+//     echo "Usuário não Cadastrado";
+//     die();
+// }
 
 //TESTANDO UPDATE
-$usuario->setNome("Marco Silva");
-echo "<hr>";
-echo "<pre>";
-if($usuario->atualizar())
-    print_r(($usuario));
+// $usuario->setNome("Marco Silva");
+// echo "<hr>";
+// echo "<pre>";
+// if($usuario->atualizar())
+//     print_r(($usuario));
 
+
+//TESTANDO ALTERAR SENHA 
+$usuario = new Usuario();
+$usuario->buscarPorId(31);   
+if($usuario->atualizarSenha(password_hash("123456789", PASSWORD_DEFAULT))){
+    echo ("Senha atualizada com sucesso"); 
+}
+    
 
 ?>
