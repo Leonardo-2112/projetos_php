@@ -139,4 +139,18 @@ class Usuario
         }
         return false;
     }
+
+    //Atualizar
+    public function atualizar():bool{
+        if($this->id )return false;
+        $sql = "UPDATE usuarios SET nome = :nome, email = :email, tipo = :tipo, ativo = :ativo, primeiro_login = :primeiro_login WHERE id = :id";
+        $cmd = $this->pdo->prepare($sql);
+        $cmd->bindValue(":nome",$this->nome);
+        $cmd->bindValue(":email",$this->email);
+        $cmd->bindValue(":senha",$this->senha);
+        $cmd->bindValue(":tipo",$this->tipo);
+        $cmd->bindValue(":ativo",$this->ativo);
+        $cmd->bindValue(":primeiro_login",$this->primeiro_login);
+        return $cmd->execute();
+    }
 }
