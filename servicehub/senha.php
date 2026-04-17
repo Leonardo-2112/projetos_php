@@ -18,8 +18,17 @@ error_reporting(E_ALL);
 
 
 
-echo "<pre>";
-foreach(Usuario::listar() as $user){
-    echo $user['id'] . "-" . $user['nome'] . "<br>";
+// echo "<pre>";
+// foreach(Usuario::listar() as $user){
+//     echo $user['id'] . "-" . $user['nome'] . "<br>";
+// }
+
+$usuario = new Usuario();
+if ($usuario->buscarPorId(31)){
+    echo "<pre>";
+    echo $usuario->getId(). "-" .$usuario->getNome()."<br>";
+}else{
+    echo "Usuário não Cadastrado";
 }
+
 ?>

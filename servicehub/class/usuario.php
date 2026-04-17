@@ -129,7 +129,6 @@ class Usuario
         $cmd->execute();
         if($cmd->rowCount()>0){ // rowCount conta as linha
             $dados = $cmd->fetch(PDO::FETCH_ASSOC);
-            $this->setId($dados['id']);
             $this->setNome($dados['nome']);
             $this->setEmail($dados['email']);
             $this->setSenha($dados['senha']);
