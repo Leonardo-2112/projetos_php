@@ -6,7 +6,7 @@ ini_set('display_errors',1);
 ini_set('display_startup_erros', 1);
 error_reporting(E_ALL);
 
-
+ 
 // $usuario = new Usuario();
 // $usuario ->setNome('Leonardo Sousa');
 // $usuario ->setEmail('leo@gmail.com');
@@ -16,19 +16,29 @@ error_reporting(E_ALL);
 //     echo "Usuário ".$usuario->getNome(). " inserido com sucesso, com o ID " . $usuario->getId();
 // }
 
-
-
+//TESTANDO LISTAR
 // echo "<pre>";
 // foreach(Usuario::listar() as $user){
 //     echo $user['id'] . "-" . $user['nome'] . "<br>";
 // }
 
+
+//TESTANDO BUSCA POR ID
 $usuario = new Usuario();
-if ($usuario->buscarPorId(31)){
+if ($usuario->buscarPorId(20)){
     echo "<pre>";
     echo $usuario->getId(). "-" .$usuario->getNome()."<br>";
 }else{
     echo "Usuário não Cadastrado";
+    die();
 }
+
+//TESTANDO UPDATE
+$usuario->setNome("Marco Silva");
+echo "<hr>";
+echo "<pre>";
+if($usuario->atualizar())
+    print_r(($usuario));
+
 
 ?>

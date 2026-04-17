@@ -129,6 +129,7 @@ class Usuario
         $cmd->execute();
         if($cmd->rowCount()>0){ // rowCount conta as linha
             $dados = $cmd->fetch(PDO::FETCH_ASSOC);
+            $this->id = $dados['id'];
             $this->setNome($dados['nome']);
             $this->setEmail($dados['email']);
             $this->setSenha($dados['senha']);
@@ -142,15 +143,18 @@ class Usuario
 
     //Atualizar
     public function atualizar():bool{
-        if($this->id )return false;
+        if(!$this->id )return false;
         $sql = "UPDATE usuarios SET nome = :nome, email = :email, tipo = :tipo, ativo = :ativo, primeiro_login = :primeiro_login WHERE id = :id";
         $cmd = $this->pdo->prepare($sql);
+        $cmd->bindValue(":id",$this->id);
         $cmd->bindValue(":nome",$this->nome);
         $cmd->bindValue(":email",$this->email);
-        $cmd->bindValue(":senha",$this->senha);
         $cmd->bindValue(":tipo",$this->tipo);
-        $cmd->bindValue(":ativo",$this->ativo);
-        $cmd->bindValue(":primeiro_login",$this->primeiro_login);
+        $cmd->bindValue(":ativo",$this->ativo, PDO::PARAM_BOOL);
+        $cmd->bindValue(":primeiro_login",$this->primeiro_login, PDO::PARAM_BOOL);
         return $cmd->execute();
     }
+
+    //Atualizar Senha
+    
 }
