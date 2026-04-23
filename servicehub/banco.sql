@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS clientes (
   PRIMARY KEY (id),
   INDEX (usuario_id),
   CONSTRAINT fk_clientes_usuarios FOREIGN KEY (usuario_id)
-    REFERENCES usuarios(id)
+  REFERENCES usuarios(id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS solicitacoes (
