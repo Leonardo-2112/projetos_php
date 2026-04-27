@@ -4,7 +4,6 @@ include_once "config/conexao.php";
 
 class Solicitacao
 {
-    private $pdo;
     private $id;
     private $cliente_id;
     private $descricao_problema;
@@ -15,6 +14,7 @@ class Solicitacao
     private $data_resposta;
     private $resposta_admin;
     private $endereco;
+    private $pdo;
 
     //contrutor
     public function __construct()
@@ -32,7 +32,8 @@ class Solicitacao
     {
         return $this->cliente_id;
     }
-    public function setClienteId(int $cliente_id){
+    public function setClienteId(int $cliente_id)
+    {
         return $this->cliente_id = $cliente_id;
     }
 
@@ -121,16 +122,11 @@ class Solicitacao
     //Inserir
     public function inserir(): bool
     {
-        $sql = "INSERT into solicitacoes (cliente_id, descricao_problema, data_preferida, status, data_cad, data_atualizacao, data_resposta, resposta_admin, endereco) values(:cliente_id, :descricao_problema, :data_preferida, :status, :data_cad, :data_atualizacao, :data_resposta, :resposta_admin, :endereco)";
+        $sql = "INSERT into solicitacoes (cliente_id, descricao_problema, data_preferida, status, data_cad, data_atualizacao, data_resposta, resposta_admin, endereco) values(:cliente_id, :descricao_problema, :data_preferida, 1, :data_cad, :data_atualizacao, :data_resposta, :resposta_admin, :endereco)";
         $cmd = $this->pdo->prepare($sql);
-        $cmd->bindValue(":cliente_id", $this->cliente_id);
+        $cmd->bindValue(":cliente_id", $this->cliente_id, PDO::PARAM_INT);
         $cmd->bindValue(":descricao_problema", $this->descricao_problema);
         $cmd->bindValue(":data_preferida", $this->data_preferida);
-        $cmd->bindValue(":status", $this->status);
-        $cmd->bindValue(":data_cad", $this->data_cad);
-        $cmd->bindValue(":data_atualizacao", $this->data_atualizacao);
-        $cmd->bindValue(":data_resposta", $this->data_resposta);
-        $cmd->bindValue(":resposta_admin", $this->resposta_admin);
         $cmd->bindValue(":endereco", $this->endereco);
         if ($cmd->execute()) {
             $this->id = $this->pdo->lastInsertId();;
@@ -147,8 +143,37 @@ class Solicitacao
         return $cmd->fetchAll();
     }
     //Listar Por Cliente
+    public static function listarPorCliente(): array
+    {
+        $sql = "select * from solicitacoes where cliente_id = :cliente_id";
+        $cmd = obterPdo()->prepare($sql);
+        $cmd->execute();
+        return $cmd->fetchAll();
+    }
 
     //Buscar Por Id
+        public function buscarPorId(int $id): bool
+    {
+        $sql = "SELECT * FROM solicitacoes WHERE id = :id";
+        $cmd = $this->pdo->prepare($sql);
+        $cmd->bindValue(":id", $id);
+        $cmd->execute();
+        $dados = $cmd->fetch(PDO::FETCH_ASSOC);
+        if ($dados) {
+            $this->id = $dados['id'];
+            $this->cliente_id = $dados['cliente_id'];
+            $this->descricao_problema = $dados['descricao_problema'];
+            $this->data_preferida = $dados['data_preferida'];
+            $this->status = $dados['status'];
+            $this->data_cad = $dados['data_cad'];
+            $this->data_atualizacao = $dados['data_atualizacao'];
+            $this->data_resposta = $dados['data_resposta'];
+            $this->resposta_admin = $dados['resposta_admin'];
+            $this->endereco = $dados['endereco'];
+            return true;
+        }
+        return false;
+    }
     //Responder
     //Atualizar Status
 }
