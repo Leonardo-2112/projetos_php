@@ -68,7 +68,7 @@ class Cliente
     public function buscarPorId(int $id): bool
     {
         $sql = "SELECT * FROM clientes WHERE id = :id";
-        $cmd = obterPdo()->prepare($sql);
+        $cmd = $this->pdo->prepare($sql);
         $cmd->bindValue(":id", $id);
         $cmd->execute();
         if ($cmd->rowCount() > 0) { // rowCount conta as linha
@@ -106,7 +106,7 @@ class Cliente
     public function buscarPorUsuario(int $usuario_id): bool
     {
         $sql = "SELECT * FROM clientes WHERE usuario_id = :usuario_id";
-        $cmd = obterPdo()->prepare($sql);
+        $cmd = $this->pdo->prepare($sql);
         $cmd->bindValue(":usuario_id", $usuario_id);
         $cmd->execute();
         $dados = $cmd->fetch(PDO::FETCH_ASSOC);

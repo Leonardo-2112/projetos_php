@@ -80,7 +80,7 @@ class Servico
     public function buscarPorId(int $id): bool
     {
         $sql = "SELECT * FROM servicos WHERE id = :id";
-        $cmd = obterPdo()->prepare($sql);
+        $cmd = $this->pdo->prepare($sql);
         $cmd->bindValue(":id", $id);
         $cmd->execute();
         if ($cmd->rowCount() > 0) {
@@ -119,20 +119,16 @@ class Servico
     //Listar Ativos
     public static function listarAtivos(): array
     {
-        $sql = "SELECT * FROM servicos WHERE descontinuados = 0";
+        $sql = "SELECT * FROM servicos WHERE descontinuado = 0";
         $cmd = obterPdo()->prepare($sql);
         $cmd->execute();
         return $cmd->fetchAll();
     }
     //Excluir
         public function excluir():bool{
-        if(!$this->id )return false;
         $sql = "UPDATE servicos SET descontinuado = :descontinuado WHERE id = :id";
         $cmd = $this->pdo->prepare($sql);
         $cmd->bindValue(":id",$this->id);
-        $cmd->bindValue(":nome",$this->nome);
-        $cmd->bindValue(":descricao",$this->descricao);
-        $cmd->bindValue(":preco",$this->preco);
         $cmd->bindValue(":descontinuado",$this->descontinuado, PDO::PARAM_BOOL);
         return $cmd->execute();
         }
