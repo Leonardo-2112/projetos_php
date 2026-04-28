@@ -5,16 +5,16 @@ ini_set('display_startup_erros', 1);
 error_reporting(E_ALL);
 //Teste Inserir
 // $cliente = new Cliente();
-// $cliente ->setUsuarioId(7);
-// $cliente ->setTelefone('119846');
-// $cliente ->setCpf('11123');
+// $cliente ->setUsuarioId(11);
+// $cliente ->setTelefone('000000');
+// $cliente ->setCpf('0000000');
 // if ($cliente->inserir()){
 //     echo "Cliente com ID: ".$cliente->getId()."<br>Telefone: ".$cliente->getTelefone(). "<br> CPF: " . $cliente->getCpf() . "<br>Inserido Com Sucesso";
 // }
 
 // //Testando Buscar Por Id
 //  $cliente = new Cliente();
-//  if ($cliente->buscarPorId(11)){
+//  if ($cliente->buscarPorId(22)){
 //      echo "<pre>";
 //      echo $cliente->getId()."<br>CPF-".$cliente->getCpf()."<br>";
 //  }else{

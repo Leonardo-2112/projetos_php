@@ -42,11 +42,11 @@ error_reporting(E_ALL);
 
 
 //TESTANDO ALTERAR SENHA 
-$usuario = new Usuario();
-$usuario->buscarPorId(31);   
-if($usuario->atualizarSenha(password_hash("123456789", PASSWORD_DEFAULT))){
-    echo ("Senha atualizada com sucesso"); 
-}
+// $usuario = new Usuario();
+// $usuario->buscarPorId(11);   
+// if($usuario->atualizarSenha(password_hash("123456", PASSWORD_DEFAULT))){
+//     echo ("Senha atualizada com sucesso"); 
+// }
     
 
 ?>
