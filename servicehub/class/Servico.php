@@ -119,7 +119,7 @@ class Servico
     //Listar Ativos
     public static function listarAtivos(): array
     {
-        $sql = "SELECT * FROM servicos WHERE descontinuado = 0";
+        $sql = "SELECT * FROM servicos WHERE descontinuado= '0' ORDER BY nome ASC";
         $cmd = obterPdo()->prepare($sql);
         $cmd->execute();
         return $cmd->fetchAll();

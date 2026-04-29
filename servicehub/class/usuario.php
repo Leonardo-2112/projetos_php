@@ -140,7 +140,7 @@ class Usuario{
 
         return $cmd->execute();
     }
-        // Excluir
+    // Excluir
     public function excluir():bool{
         if(!$this->id) return false;
 
