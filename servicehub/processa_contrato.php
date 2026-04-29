@@ -103,3 +103,28 @@ if (!$usuarioBanco ->buscarPorEmail($email)){
     $usuario_id = $usuarioBanco->getId();
 }
 //Verificar se o cliente existe
+$cliente= new Cliente();
+if(!$cliente->buscarPorUsuario($usuario_id)){
+    //Gravamos o cliente
+    $cliente->setUsuarioId($usuario_id);
+    $cliente->setTelefone($telefone);
+    $cliente->setCpf($cpf);
+    if(!$cliente->inserir()){
+        header("location: contratar.php?erro=Erro ao cadastrar o Cliente.");
+        exit();       
+    }
+}
+$cliente_id = $cliente->getId();
+//Cadastrar solicitação:
+$solicitacao = new Solicitacao();
+$solicitacao->setClienteId($cliente_id);
+$solicitacao->setDescricaoProblema($descricao);
+$solicitacao->setDataPreferida($data_preferida ?: null);
+$solicitacao->setEndereco($endereco);
+
+if(!$solicitacao->inserir()){
+    header("location: contratar.php?erro=Erro ao cadastrar a Solicitação.");
+    exit();
+}
+$solicitacao_id = $solicitacao->getId();
+//Associar os Serviços à Solicitação.
