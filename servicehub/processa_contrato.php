@@ -84,4 +84,22 @@ if($data_preferida){
 }
 //Verificar se o usuário existe
 $usuarioBanco = new Usuario();
- 
+if (!$usuarioBanco ->buscarPorEmail($email)){
+    //Se retornou falso é pq não tem usuário com este email no banco 
+    //então gravamos
+    $usuario = new Usuario();
+    $usuario->setNome($nome);
+    $usuario->setEmail($email);
+    $usuario->setSenha("123456");
+    $usuario->setTipo(2);
+    $usuario->setAtivo(true);
+    $usuario->setPrimeiroLogin(true);
+    if (!$usuario->inserir()){
+        header("location: contratar.php?erro=Erro ao cadastrar o Usuário.");
+        exit();
+    }
+    $usuario_id = $usuario->getId();
+}else{
+    $usuario_id = $usuarioBanco->getId();
+}
+//Verificar se o cliente existe
