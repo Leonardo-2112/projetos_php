@@ -108,6 +108,19 @@ class Solicitacao
         $cmd = obterPdo()->query($sql);
         return $cmd->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function listarServicosPorSolicitacao(int $solicitacao_id): array
+    {
+        $sql = "SELECT s.nome, s.preco 
+            FROM servico_solicitacao ss
+            JOIN servicos s ON ss.servico_id = s.id
+            WHERE ss.solicitacao_id = :solicitacao_id";
+
+        $cmd = $this->pdo->prepare($sql);
+        $cmd->bindValue(":solicitacao_id", $solicitacao_id, PDO::PARAM_INT);
+        $cmd->execute();
+
+        return $cmd->fetchAll(PDO::FETCH_ASSOC);
+    }
     //Listar Por Cliente
     public static function listarPorCliente(int $usuario_id): array
     {
