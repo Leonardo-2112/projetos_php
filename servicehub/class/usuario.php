@@ -151,7 +151,7 @@ class Usuario{
         return $cmd->execute();
     }
         //BuscarporEmail
-        public function buscarPorEmail(int $email):bool{
+        public function buscarPorEmail(string $email):bool{
         $sql = "SELECT * FROM usuarios WHERE email = :email";
         $cmd = obterPdo()->prepare($sql);
         $cmd->bindValue(":email",$email);

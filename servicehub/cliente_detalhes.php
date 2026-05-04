@@ -1,6 +1,10 @@
 <?php 
+session_start();
 include "includes/header.php";
 include "includes/menu.php";
+require_once "config/conexao.php";
+require_once "includes/funcoes.php";
+
 ?>
 
 <main class="container mt-5">

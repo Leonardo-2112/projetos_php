@@ -32,10 +32,16 @@ class Solicitacao
     {
         return $this->cliente_id = $cliente_id;
     }
+
     //Descrição do Problema
     public function setDescricaoProblema(string $descricao_problema)
     {
         return $this->descricao_problema = $descricao_problema;
+    }
+
+    public function getDescricaoProblema()
+    {
+       return $this->descricao_problema;
     }
     //Data Preferida
     public function setDataPreferida($data_preferida)
@@ -84,13 +90,17 @@ class Solicitacao
         return $cmd->fetchAll(PDO::FETCH_ASSOC);
     }
     //Listar Por Cliente
-    public static function listarPorCliente(int $cliente_id): array
+    public static function listarPorCliente(int $usuario_id): array
     {
-        $sql = "select * from solicitacoes where cliente_id = :cliente_id ORDER BY data_cad DESC";
-        $cmd = obterPdo()->prepare($sql);
-        $cmd->bindValue(":cliente_id", $cliente_id, PDO::PARAM_INT);
-        $cmd->execute();
-        return $cmd->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "SELECT s.* FROM solicitacoes s 
+            JOIN clientes c ON s.cliente_id = c.id 
+            WHERE c.usuario_id = :usuario_id";
+    
+    $cmd = obterPdo()->prepare($sql);
+    $cmd->bindValue(":usuario_id", $usuario_id, PDO::PARAM_INT);
+    
+    $cmd->execute();
+    return $cmd->fetchAll(PDO::FETCH_ASSOC);
     }
 
     //Buscar Por Id

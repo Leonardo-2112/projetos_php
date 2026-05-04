@@ -1,6 +1,7 @@
 
 <?php 
 //Comando SQL para Listar Serviços de acordo com o banco de dados 
+session_start();
 include_once "config/conexao.php";
 $cmd = obterPdo()->prepare("SELECT * FROM servicos WHERE descontinuado=b'0'");
 $cmd -> execute();

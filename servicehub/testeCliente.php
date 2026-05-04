@@ -4,13 +4,13 @@ ini_set('display_errors',1);
 ini_set('display_startup_erros', 1);
 error_reporting(E_ALL);
 //Teste Inserir
-// $cliente = new Cliente();
-// $cliente ->setUsuarioId(11);
-// $cliente ->setTelefone('000000');
-// $cliente ->setCpf('0000000');
-// if ($cliente->inserir()){
-//     echo "Cliente com ID: ".$cliente->getId()."<br>Telefone: ".$cliente->getTelefone(). "<br> CPF: " . $cliente->getCpf() . "<br>Inserido Com Sucesso";
-// }
+$cliente = new Cliente();
+$cliente ->setUsuarioId(3);
+$cliente ->setTelefone('1111111');
+$cliente ->setCpf('2222222');
+if ($cliente->inserir()){
+    echo "Cliente com ID: ".$cliente->getId()."<br>Telefone: ".$cliente->getTelefone(). "<br> CPF: " . $cliente->getCpf() . "<br>Inserido Com Sucesso";
+}
 
 // //Testando Buscar Por Id
 //  $cliente = new Cliente();
