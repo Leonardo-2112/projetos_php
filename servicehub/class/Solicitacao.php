@@ -41,19 +41,38 @@ class Solicitacao
 
     public function getDescricaoProblema()
     {
-       return $this->descricao_problema;
+        return $this->descricao_problema;
     }
     //Data Preferida
     public function setDataPreferida($data_preferida)
     {
         return $this->data_preferida = $data_preferida;
     }
+    public function getDataPreferida()
+    {
+        return $this->data_preferida;
+    }
     // endereco
     public function setEndereco(string $endereco)
     {
         return $this->endereco = $endereco;
     }
-
+    public function getEndereco()
+    {
+        return $this->endereco;
+    }
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    public function getRespostaAdmin()
+    {
+        return $this->resposta_admin;
+    }
+    public function getDataCadastro()
+    {
+        return $this->data_cad;
+    }
     //Métodos obrigatórios:
     //Inserir
     public function inserir(): bool
@@ -95,12 +114,12 @@ class Solicitacao
         $sql = "SELECT s.* FROM solicitacoes s 
             JOIN clientes c ON s.cliente_id = c.id 
             WHERE c.usuario_id = :usuario_id";
-    
-    $cmd = obterPdo()->prepare($sql);
-    $cmd->bindValue(":usuario_id", $usuario_id, PDO::PARAM_INT);
-    
-    $cmd->execute();
-    return $cmd->fetchAll(PDO::FETCH_ASSOC);
+
+        $cmd = obterPdo()->prepare($sql);
+        $cmd->bindValue(":usuario_id", $usuario_id, PDO::PARAM_INT);
+
+        $cmd->execute();
+        return $cmd->fetchAll(PDO::FETCH_ASSOC);
     }
 
     //Buscar Por Id
@@ -111,12 +130,11 @@ class Solicitacao
         $cmd->bindValue(":id", $id, PDO::PARAM_INT);
         $cmd->execute();
         $dados = $cmd->fetch(PDO::FETCH_ASSOC);
-        if ($cmd->rowCount() > 0) {
-            $dados = $cmd->fetch(PDO::FETCH_ASSOC);
-
+        if ($dados) {
             $this->id = $dados['id'];
             $this->cliente_id = $dados['cliente_id'];
             $this->descricao_problema = $dados['descricao_problema'];
+
             $this->data_preferida = $dados['data_preferida'];
             $this->status = $dados['status'];
             $this->data_cad = $dados['data_cad'];
@@ -124,8 +142,10 @@ class Solicitacao
             $this->data_resposta = $dados['data_resposta'];
             $this->resposta_admin = $dados['resposta_admin'];
             $this->endereco = $dados['endereco'];
+
             return true;
         }
+
         return false;
     }
 
