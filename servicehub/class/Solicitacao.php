@@ -1,6 +1,7 @@
 <?php
 //incluir conexão
 include_once "config/conexao.php";
+include_once "class/ServicoSolicitacao.php";
 
 class Solicitacao
 {
@@ -14,6 +15,7 @@ class Solicitacao
     private $data_resposta;
     private $resposta_admin;
     private $endereco;
+    public $servicos = [];
     private $pdo;
 
     //contrutor
@@ -31,6 +33,10 @@ class Solicitacao
     public function setClienteId(int $cliente_id)
     {
         return $this->cliente_id = $cliente_id;
+    }
+    public function getClienteId()
+    {
+        return $this->cliente_id;
     }
 
     //Descrição do Problema
@@ -73,11 +79,15 @@ class Solicitacao
     {
         return $this->data_cad;
     }
+    public function getDataResposta()
+    {
+        return $this->data_resposta;
+    }
     //Métodos obrigatórios:
     //Inserir
     public function inserir(): bool
     {
-        $sql = "INSERT into solicitacoes (cliente_id, descricao_problema, data_preferida, status, endereco) values(:cliente_id, :descricao, :data_preferida, 1, :endereco)";
+        $sql = "INSERT into solicitacoes (cliente_id, descricao_problema, data_preferida, status, endereco) values(:cliente_id, :descricao_problema, :data_preferida, 1, :endereco)";
         $cmd = $this->pdo->prepare($sql);
         $cmd->bindValue(":cliente_id", $this->cliente_id, PDO::PARAM_INT);
         $cmd->bindValue(":descricao_problema", $this->descricao_problema);
@@ -92,18 +102,17 @@ class Solicitacao
     //Listar
     public static function listar(): array
     {
-        $sql = "SELECT * FROM solicitacoes ORDER BY data_cad DESC";
         $sql = "SELECT s.id, s.status, s.data_cad,
-            u.nome AS cliente_nome,
-            u.email AS cliente_email,
-            GROUP_CONCAT(se.nome SEPARATOR ', ') AS servicos
-        FROM solicitacoes s
-        INNER JOIN clientes c ON c.id = s.cliente_id
-        INNER JOIN usuarios u ON u.id = c.usuario_id
-        INNER JOIN servico_solicitacao ss ON ss.solicitacao_id = s.id
-        INNER JOIN servicos se ON se.id = ss.servico_id
-        GROUP BY s.id, s.status, s.data_cad, u.nome, u.email
-        ORDER BY s.data_cad DESC";
+    u.nome AS cliente_nome,
+    u.email AS cliente_email,
+    GROUP_CONCAT(se.nome SEPARATOR ', ') AS servicos
+FROM solicitacoes s
+INNER JOIN clientes c ON c.id = s.cliente_id
+INNER JOIN usuarios u ON u.id = c.usuario_id
+LEFT JOIN servico_solicitacao ss ON ss.solicitacao_id = s.id
+LEFT JOIN servicos se ON se.id = ss.servico_id
+GROUP BY s.id, s.status, s.data_cad, u.nome, u.email
+ORDER BY s.data_cad DESC";
 
         $cmd = obterPdo()->query($sql);
         return $cmd->fetchAll(PDO::FETCH_ASSOC);
@@ -147,7 +156,6 @@ class Solicitacao
             $this->id = $dados['id'];
             $this->cliente_id = $dados['cliente_id'];
             $this->descricao_problema = $dados['descricao_problema'];
-
             $this->data_preferida = $dados['data_preferida'];
             $this->status = $dados['status'];
             $this->data_cad = $dados['data_cad'];
@@ -155,7 +163,7 @@ class Solicitacao
             $this->data_resposta = $dados['data_resposta'];
             $this->resposta_admin = $dados['resposta_admin'];
             $this->endereco = $dados['endereco'];
-
+            $this->servicos = ServicoSolicitacao::listarServicosDaSolicitacao($dados['id']);
             return true;
         }
 
