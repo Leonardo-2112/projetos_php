@@ -54,7 +54,7 @@ class Usuario{
         return $this->primeiro_login;
     }
     public function setPrimeiroLogin(bool $primeiro_login){
-        $this->ativo = $primeiro_login;
+        $this->primeiro_login = $primeiro_login;
     }
     // métodos (functions) - Representam os RFs do projeto
     // efetuar login

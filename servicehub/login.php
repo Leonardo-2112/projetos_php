@@ -7,6 +7,7 @@ include "includes/menu.php";
 if(isset($_SESSION['usuario_id'])){
   $destino = ($_SESSION['tipo'] == 1)?"admin_dashboard.php":"cliente_dashboard.php";//estrutura do if ternário
   header("location: $destino");
+  exit;
 }
 
 require "class/Usuario.php";
@@ -34,9 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
     if ($usuario['tipo'] == 1) {
       header('location: admin_dashboard.php'); //header comando para encaminhamento de página
-    } else {
+      exit;
+      } else {
       header('location: cliente_dashboard.php'); //header comando para encaminhamento de página
-    }
+      exit;
+      }
   }
 }
 

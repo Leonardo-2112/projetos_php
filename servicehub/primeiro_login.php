@@ -1,7 +1,46 @@
 <?php 
 include "includes/header.php";
 include "includes/menu.php";
+
+session_start();
+require_once "class/Usuario.php";
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$erro = "";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $senhaAtual = $_POST['senha_atual'];
+    $novaSenha = $_POST['nova_senha'];
+    $confirmar = $_POST['confirmar_senha'];
+
+    $usuario = new Usuario();
+    $usuario->buscarPorId($_SESSION['usuario_id']);
+
+    if (!password_verify($senhaAtual, $usuario->getSenha())) {
+        $erro = "Senha atual incorreta";
+    }
+    elseif ($novaSenha !== $confirmar) {
+        $erro = "As senhas não coincidem";
+    }
+    else {
+        $hash = password_hash($novaSenha, PASSWORD_DEFAULT);
+        $usuario->atualizarSenha($hash);
+
+        $usuario->setPrimeiroLogin(0);
+        $usuario->atualizar();
+
+
+        header("Location: cliente_dashboard.php");
+        exit;
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
