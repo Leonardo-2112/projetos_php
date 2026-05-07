@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 session_start();
 require_once "class/Solicitacao.php";
-
+require_once "includes/funcoes.php";
 if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo']!=1){
   header("Location: login.php");
   exit;
@@ -45,7 +45,7 @@ include "includes/menu.php";
               }
             ?>
           </td>
-          <td><?= $s['status'] ?></td>
+          <td class="<?php statusCor($s['status'])?>"><?= statusTexto($s["status"]) ?></td>
           <td><?= date("d/m/Y H:i", strtotime($s["data_cad"])) ?></td>
           <td>
             <a href='admin_responder.php?id=<?= $s["id"] ?>' class="btn btn-primary btn-sm">Responder</a>
